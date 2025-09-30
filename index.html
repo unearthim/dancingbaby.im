@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dancingbaby.im</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Times+New+Roman&display=swap" rel="stylesheet">
+    <style>
+        /*
+        --- Visual Identity: dancingbaby.im (Maximum Chaos Edition) ---
+        Palette: A direct homage to late '90s web design. Dark, simple, and focused on the content.
+        Typography: VT323 for a pixelated, retro feel, and Times New Roman as the classic default serif of the era.
+        */
+        body {
+            background-color: #000000;
+            color: #C0C0C0; /* Silver */
+            font-family: 'Times New Roman', serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow: auto;
+            padding: 2rem;
+        }
+
+        #baby-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('dancingbaby.gif');
+            background-size: 100px 100px;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .font-pixel {
+            font-family: 'VT323', monospace;
+        }
+
+        h1 {
+            color: #FFFF00; /* Bright Yellow */
+            text-shadow: 2px 2px #FF0000; /* Red shadow */
+        }
+        
+        a {
+            color: #0000FF; /* Bright Blue */
+            text-decoration: underline;
+        }
+        
+        a:hover {
+            color: #FF00FF; /* Magenta */
+        }
+
+        .baby-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .baby-item {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .baby-item:hover {
+            transform: scale(1.1);
+        }
+
+        #curator-modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: #C0C0C0; /* Silver, like old windows UI */
+            color: #000000;
+            margin: auto;
+            padding: 2px;
+            border-top: 2px solid #FFFFFF;
+            border-left: 2px solid #FFFFFF;
+            border-right: 2px solid #808080;
+            border-bottom: 2px solid #808080;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 2px 2px 0px #000000;
+        }
+
+        .modal-header {
+            background-color: #000080; /* Dark blue title bar */
+            color: #FFFFFF;
+            padding: 4px 8px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 20px;
+            background-color: #C0C0C0;
+            text-align: left;
+            line-height: 1.6;
+        }
+        
+        .close-button {
+            background-color: #C0C0C0;
+            border-top: 1px solid #FFFFFF;
+            border-left: 1px solid #FFFFFF;
+            border-right: 1px solid #808080;
+            border-bottom: 1px solid #808080;
+            font-family: 'VT323', monospace;
+            font-size: 16px;
+            padding: 0 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="baby-background"></div>
+
+    <!-- 1. The Header -->
+    <header class="relative z-10 mb-8 max-w-xl px-4">
+        <h1 class="font-pixel text-5xl md:text-6xl">dancingbaby.im</h1>
+        <p class="text-lg mt-2">Filetype: GIF (Graphics Interchange Format)</p>
+        <p class="text-lg">Circa: 1996</p>
+    </header>
+
+    <!-- 2. The Exhibit -->
+    <div class="relative z-10 inline-block p-4 mb-8 bg-black bg-opacity-75 border-2 border-gray-400 rounded-lg">
+        <main class="p-2 border-4 border-double border-gray-500 bg-gray-800 inline-block">
+            <div id="baby-grid-container" class="baby-grid">
+                <!-- 9 Dancing babies will be populated here by the script -->
+            </div>
+        </main>
+    </div>
+
+    <!-- 3. The Plaque -->
+    <div class="relative z-10 max-w-xl px-4 space-y-4">
+        <p class="text-xl">An early specimen of the digital artifact known as a "viral meme." Its unexplained, hypnotic motion captured the collective imagination of the early, dial-up web. 
+            <span id="curator-question-mark" class="font-pixel text-2xl text-yellow-400 cursor-pointer" title="Curator's Note">[?]</span>
+        </p>
+        <p class="font-pixel text-lg">An exhibit by <a href="https://unearth.im" target="_blank" rel="noopener noreferrer">unearth.im</a></p>
+    </div>
+
+    <!-- 4. The Curator's Note Modal Window -->
+    <div id="curator-modal">
+        <div class="modal-content">
+            <div class="modal-header font-pixel">
+                <span>Curator's Note</span>
+                <button id="close-modal" class="close-button">X</button>
+            </div>
+            <div class="modal-body">
+                <h2 class="font-pixel text-xl mb-4 text-black">A Note on Transmission:</h2>
+                <p class="text-black">
+                    In the era of the dial-up web, digital artifacts like the Dancing Baby spread not through platforms, but through people. They traveled as attachments in forwarded emails, passed along vast, invisible chains of friends and colleagues.
+                </p>
+                <br>
+                <p class="text-black">
+                    Each forward was a conscious act of sharing, a human-powered algorithm that created the first truly viral phenomena. Clicking a baby invites you to participate in this original, foundational ritual of meme culture.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const gridContainer = document.getElementById('baby-grid-container');
+            const numberOfBabies = 9; // 3x3 grid
+            let audioContext;
+
+            // --- Function to play a retro-style sound ---
+            function playSound() {
+                if (!audioContext) {
+                    // Create AudioContext on the first user interaction
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                oscillator.type = 'sine'; // A clean, simple sound
+                oscillator.frequency.setValueAtTime(880, audioContext.currentTime); // A high-pitched 'ping'
+                gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
+                
+                gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.5);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            }
+
+
+            // --- INTERACTION: Populate grid and add email functionality ---
+            for (let i = 0; i < numberOfBabies; i++) {
+                const img = document.createElement('img');
+                img.src = 'dancingbaby.gif';
+                img.alt = 'The Dancing Baby';
+                img.className = 'baby-item';
+                img.style.width = '100px';
+                img.style.height = 'auto';
+                
+                img.addEventListener('click', () => {
+                    const subject = encodeURIComponent("FW: FW: check this out LOL");
+                    const bodyText = `
+OMG LOL u have 2 see this!!!
+
+https://dancingbaby.im
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+cya l8r,
+a keypal ;-)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+`;
+                    const body = encodeURIComponent(bodyText);
+                    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+                });
+
+                gridContainer.appendChild(img);
+            }
+
+            // --- INTERACTION: Curator's Note Modal ---
+            const modal = document.getElementById('curator-modal');
+            const questionMark = document.getElementById('curator-question-mark');
+            const closeModal = document.getElementById('close-modal');
+
+            questionMark.addEventListener('click', () => {
+                playSound();
+                modal.style.display = 'flex';
+            });
+
+            closeModal.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+            
+            // Close modal if user clicks outside the content area
+            window.addEventListener('click', (event) => {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
+
