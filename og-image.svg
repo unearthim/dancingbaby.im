@@ -1,0 +1,27 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+    <!-- 
+    Visual Identity for dancingbaby.im Open Graph Image
+    - Font: A generic monospace font is used as a fallback for the 'VT323' pixel style.
+    - Palette: Matches the website's 90s-inspired theme (black, yellow, red).
+    - To convert to PNG: Use a vector editor or online tool to export this SVG to a 1200x630 PNG file named 'og-image.png'.
+    -->
+    <defs>
+        <style>
+            .title { font-family: 'VT323', monospace; font-size: 120px; fill: #FFFF00; text-anchor: middle; }
+            .subtitle { font-family: 'VT323', monospace; font-size: 48px; fill: #C0C0C0; text-anchor: middle; }
+        </style>
+        <filter id="text-shadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feOffset result="offOut" in="SourceGraphic" dx="4" dy="4" />
+            <feFlood flood-color="#FF0000" result="floodOut" />
+            <feComposite in="floodOut" in2="offOut" operator="in" result="shadow" />
+            <feMerge>
+                <feMergeNode in="shadow" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+    </defs>
+
+    <rect width="100%" height="100%" fill="#000000" />
+    <text x="600" y="300" class="title" filter="url(#text-shadow)">dancingbaby.im</text>
+    <text x="600" y="380" class="subtitle">An early specimen of the "viral meme."</text>
+</svg>
